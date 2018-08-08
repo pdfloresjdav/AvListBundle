@@ -1,5 +1,5 @@
 {
-    "name": "appventus/avlist-bundle",
+    "name": "pdfloresjdav/avlist-bundle",
     "type": "symfony-bundle",
     "description": "Symfony AvListBundle",
     "keywords": ["list","order","paginator", "bootstrap"],
