@@ -9,7 +9,7 @@ Easily make paginate and orderable list in Symfony2
 Add this in your composer :
 
     "appventus/avlist-bundle": "dev-master"
-
+    "pdfloresjdav/avlist-bundle": "dev-master"
 
 2) How to use it ?
 ----------------
