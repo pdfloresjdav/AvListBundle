@@ -1,0 +1,36 @@
+{% trans_default_domain 'av_list' %}
+
+<div style="text-align:right">
+    {% if paginator.currentPage != 1 %}
+        <span>
+            <a data-toggle="ajax"
+               data-update="{{ update_id ? update_id : container_id}}"
+               href="{{ path(route, route_parameters|merge({'page': paginator.currentPage-1, 'sort': sort, 'order': order })) }}">
+                &larr;
+            </a>&nbsp;
+        </span>
+    {% endif %}
+
+    <span>
+        [ {{ paginator.currentPage * paginator.maxPerPage-paginator.maxPerPage + 1 }} -
+
+        {% if paginator.currentPage * paginator.maxPerPage < paginator.nbResults %}
+            {{ paginator.currentPage * paginator.maxPerPage }}
+        {% else %}
+            {{ paginator.nbResults }}
+        {% endif %}
+
+        ] {{ 'on'|trans|desc('on')}} {{ paginator.nbResults }}
+    </span>
+
+    {% if paginator.currentPage != paginator.nbPages %}
+        <span>
+            &nbsp;
+            <a data-toggle="ajax"
+               data-update="{{ update_id ? update_id : container_id}}"
+               href="{{ path(route, route_parameters|merge({'page': paginator.currentPage + 1, 'sort': sort, 'order': order })) }}">
+                &rarr;
+            </a>
+        </span>
+    {% endif %}
+</div>

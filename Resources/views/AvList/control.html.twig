@@ -1,0 +1,30 @@
+{% if list.pager.haveToPaginate %}
+    {{ list.control|raw }}
+{% endif %}
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        /**
+         * Create the table sorting links (th.sortable => th.sortable > a)
+         */
+        $('#{{ list.options.container_id }} thead th.sortable').each(function(){
+            uri = '{{ path(list.options.route, list.options.route_parameters) }}';
+            uri = updateQueryStringParameter('sort', $(this).data('filter'), uri);
+            var order;
+            if ('{{ list.sort }}' === $(this).data('filter')) {
+                order = '{{list.toggleOrder}}';
+            } else {
+                order = 'ASC';
+            }
+            uri = updateQueryStringParameter('order', order, uri);
+            title = $(this).html();
+            link = '<a href="' + uri + '">' + title + '</a>';
+            $(this).html(link);
+        });
+    });
+
+</script>
+
+<div id="canvasloader-container" style="display: none;">
+    <img src="/bundles/avlist/images/ajax-loader.gif" title="Chargement en cours" alt="Chargement" width="32" height="32">
+</div>

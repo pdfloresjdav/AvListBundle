@@ -1,0 +1,37 @@
+{% trans_default_domain 'av_list' %}
+
+<div id="{{ list.options.id }}" class="{{ list.options.class }}">
+    {% if list.pager.nbResults > 0 %}
+        <table class="table">
+            <thead>
+                <tr>
+                {% for column in list.columns %}
+                    {% if column.sortable %}
+                    <th class="sortable" data-filter="{{ column.sortable_id }}">{{ column.label|trans }}</th>
+                    {% else %}
+                    <th>{{ column.label|trans }}</th>
+                    {% endif %}
+                {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+            {% for item in list.pager %}
+
+                <tr class="{% if loop.index is odd %}odd{% else %}even{% endif %}">
+
+                {% for column in list.columns %}
+                    <td>{{ attribute(item, column.id)|list_value_render(column.filters) }}</td>
+                {% else %}
+                    <td>{{ 'no-columns'|trans|desc('No columns, did you forget to use addColumn ?')}}</td>
+                {% endfor %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% include 'AvListBundle:AvList:control.html.twig' with {'list': list }%}
+    {% else %}
+        <h1 style="text-align: center;">
+            <small>{{ 'no.result'|trans|desc('No result')}}</small>
+        </h1>
+    {% endif %}
+</div>
