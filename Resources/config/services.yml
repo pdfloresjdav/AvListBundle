@@ -1,12 +1,11 @@
 services:
     av_list:
         class: AppVentus\ListBundle\Component\AvListFactory
-        arguments: [@request, @templating, @translator]
+        arguments: ["@request_stack", "@templating", "@translator"]
         public: true
-        scope: request
 
     av_list.twig.list_extension:
         class: AppVentus\ListBundle\Twig\Extension\ListExtension
-        arguments: [@twig]
+        arguments: ["@twig"]
         tags:
             - { name: twig.extension }
