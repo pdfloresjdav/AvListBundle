@@ -4,6 +4,7 @@ namespace AppVentus\ListBundle\Component;
 
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Translation\TranslatorInterface;
 
 /**
@@ -13,7 +14,7 @@ use Symfony\Component\Translation\TranslatorInterface;
  */
 class AvListFactory
 {
-    /** @var Request */
+    /** @var RequestStack */
     protected $request;
     /** @var EngineInterface */
     protected $templating;
@@ -25,11 +26,11 @@ class AvListFactory
      * @param EngineInterface     $templating The templating engine.
      * @param TranslatorInterface $translator The translator service
      */
-    public function __construct(Request $request, EngineInterface $templating, TranslatorInterface $translator)
+    public function __construct(RequestStack $request, EngineInterface $templating, TranslatorInterface $translator)
     {
-        $this->request = $request;
         $this->templating = $templating;
         $this->translator = $translator;
+        $this->request = $request->getCurrentRequest();
     }
 
     /**
@@ -66,3 +67,4 @@ class AvListFactory
         return $list;
     }
 }
+
